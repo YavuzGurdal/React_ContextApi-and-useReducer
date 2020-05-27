@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+button {
+  width: 150px;
+  margin: 20px 5px;
+  padding: 10px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -1,25 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useReducer } from 'react';
 import './App.css';
+//import ComponentC from './components/ComponentC';
+import DataFetching from './components/DataFetching';
+
+export const CountContext = React.createContext() // contextapi
+
+const initialState = 0;
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "increment":
+      return state + action.payload;
+
+    case "decrement":
+      return state - action.payload;
+
+    case "reset":
+      return initialState
+
+    default:
+      return state
+  }
+}
 
 function App() {
+
+  const [count, dispatch] = useReducer(reducer, initialState) // useReducer. ilk parametre state(yani count state'dir)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CountContext.Provider value={{ countState: count, countDispatch: dispatch }}>
+      <div>
+        <DataFetching />
+      </div>
+
+      {/* <div className="App">
+        Count from App : {count}
+        <br />
+        <ComponentC />
+      </div> */}
+    </CountContext.Provider>
   );
 }
 
